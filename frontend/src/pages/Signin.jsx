@@ -4,19 +4,21 @@ import { AiFillGoogleCircle } from "react-icons/ai";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { useNavigate } from "react-router";
 
 
 export default function Signin() {
     const {register, handleSubmit, formState: {errors}} = useForm();
     const [login, setLogin] = useState(true); 
-
+    const navigate = useNavigate();
     function handleClick(e){
         e.preventDefault();
         setLogin(!login);   
     }
 
     function onSubmit(data){
-        console.log(data)
+        console.log(data);
+        navigate("/dashboard");  
     }
 
     return (

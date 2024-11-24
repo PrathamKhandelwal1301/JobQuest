@@ -6,3 +6,15 @@
 .custom_shadow{
     box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
 }
+
+.noscroll{
+    ::-webkit-scrollbar {
+        display: none;
+        width: none;
+    }
+    scrollbar-width: none;
+}
+
+.custom_shadow_2{
+    box-shadow: rgba(0, 0, 0, 0.5) 0px 1px 4px;
+}
