@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+             xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+             xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
+             xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
+             id="Definitions_1"
+             targetNamespace="http://bpmn.io/schema/bpmn">
+  <process id="JobQuestProcess" name="JobQuest Workflow with Swimlanes" isExecutable="true">
+
+    <!-- Swimlanes -->
+    <laneSet id="LaneSet_1">
+      <lane id="Lane_JobSeeker" name="Job Seeker">
+        <flowNodeRef>StartEvent_1</flowNodeRef>
+        <flowNodeRef>Task_CreateAccount</flowNodeRef>
+        <flowNodeRef>Task_UploadResume</flowNodeRef>
+        <flowNodeRef>Task_SelectJobRoles</flowNodeRef>
+        <flowNodeRef>Task_ReceiveRecommendations</flowNodeRef>
+      </lane>
+      <lane id="Lane_System" name="System">
+        <flowNodeRef>Task_AnalyzeATS</flowNodeRef>
+        <flowNodeRef>ExclusiveGateway_ATS</flowNodeRef>
+        <flowNodeRef>Task_StoreResume</flowNodeRef>
+        <flowNodeRef>Task_ProvideFeedback</flowNodeRef>
+        <flowNodeRef>Task_TrackApplications</flowNodeRef>
+      </lane>
+      <lane id="Lane_AI" name="AI Recommendation Engine">
+        <flowNodeRef>Task_AnalyzePreferences</flowNodeRef>
+        <flowNodeRef>Task_FetchJobListings</flowNodeRef>
+        <flowNodeRef>Task_GenerateRecommendations</flowNodeRef>
+      </lane>
+    </laneSet>
+
+    <!-- Events -->
+    <startEvent id="StartEvent_1" name="Start">
+      <outgoing>Flow_1</outgoing>
+    </startEvent>
+
+    <endEvent id="EndEvent_1" name="End">
+      <incoming>Flow_12</incoming>
+    </endEvent>
+
+    <!-- Job Seeker Tasks -->
+    <task id="Task_CreateAccount" name="Create Account/Login">
+      <incoming>Flow_1</incoming>
+      <outgoing>Flow_2</outgoing>
+    </task>
+    <task id="Task_UploadResume" name="Upload Resume(s)">
+      <incoming>Flow_2</incoming>
+      <outgoing>Flow_3</outgoing>
+    </task>
+    <task id="Task_SelectJobRoles" name="Select Target Job Roles">
+      <incoming>Flow_3</incoming>
+      <outgoing>Flow_4</outgoing>
+    </task>
+    <task id="Task_ReceiveRecommendations" name="Receive Recommendations">
+      <incoming>Flow_11</incoming>
+      <outgoing>Flow_12</outgoing>
+    </task>
+
+    <!-- System Tasks -->
+    <task id="Task_AnalyzeATS" name="Analyze Resume with ATS Scanner">
+      <incoming>Flow_4</incoming>
+      <outgoing>Flow_5</outgoing>
+    </task>
+    <exclusiveGateway id="ExclusiveGateway_ATS" name="ATS Optimization Passed?">
+      <incoming>Flow_5</incoming>
+      <outgoing>Flow_6</outgoing>
+      <outgoing>Flow_7</outgoing>
+    </exclusiveGateway>
+    <task id="Task_StoreResume" name="Store Optimized Resume">
+      <incoming>Flow_6</incoming>
+      <outgoing>Flow_8</outgoing>
+    </task>
+    <task id="Task_ProvideFeedback" name="Provide Feedback for Improvement">
+      <incoming>Flow_7</incoming>
+      <outgoing>Flow_3</outgoing>
+    </task>
+    <task id="Task_TrackApplications" name="Track Job Applications">
+      <incoming>Flow_8</incoming>
+      <outgoing>Flow_9</outgoing>
+    </task>
+
+    <!-- AI Recommendation Engine Tasks -->
+    <task id="Task_AnalyzePreferences" name="Analyze User Preferences">
+      <incoming>Flow_9</incoming>
+      <outgoing>Flow_10</outgoing>
+    </task>
+    <task id="Task_FetchJobListings" name="Fetch Matching Job Listings">
+      <incoming>Flow_10</incoming>
+      <outgoing>Flow_11</outgoing>
+    </task>
+    <task id="Task_GenerateRecommendations" name="Generate Top Recommendations">
+      <incoming>Flow_11</incoming>
+      <outgoing>Flow_11</outgoing>
+    </task>
+
+    <!-- Sequence Flows -->
+    <sequenceFlow id="Flow_1" sourceRef="StartEvent_1" targetRef="Task_CreateAccount" />
+    <sequenceFlow id="Flow_2" sourceRef="Task_CreateAccount" targetRef="Task_UploadResume" />
+    <sequenceFlow id="Flow_3" sourceRef="Task_UploadResume" targetRef="Task_SelectJobRoles" />
+    <sequenceFlow id="Flow_4" sourceRef="Task_SelectJobRoles" targetRef="Task_AnalyzeATS" />
+    <sequenceFlow id="Flow_5" sourceRef="Task_AnalyzeATS" targetRef="ExclusiveGateway_ATS" />
+    <sequenceFlow id="Flow_6" sourceRef="ExclusiveGateway_ATS" targetRef="Task_StoreResume" />
+    <sequenceFlow id="Flow_7" sourceRef="ExclusiveGateway_ATS" targetRef="Task_ProvideFeedback" />
+    <sequenceFlow id="Flow_8" sourceRef="Task_StoreResume" targetRef="Task_TrackApplications" />
+    <sequenceFlow id="Flow_9" sourceRef="Task_TrackApplications" targetRef="Task_AnalyzePreferences" />
+    <sequenceFlow id="Flow_10" sourceRef="Task_AnalyzePreferences" targetRef="Task_FetchJobListings" />
+    <sequenceFlow id="Flow_11" sourceRef="Task_FetchJobListings" targetRef="Task_ReceiveRecommendations" />
+    <sequenceFlow id="Flow_12" sourceRef="Task_ReceiveRecommendations" targetRef="EndEvent_1" />
+
+  </process>
+
+  <!-- Diagram -->
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="JobQuestProcess">
+      <!-- Swimlane Positions -->
+      <bpmndi:BPMNShape id="Lane_JobSeeker_di" bpmnElement="Lane_JobSeeker">
+        <dc:Bounds x="0" y="0" width="900" height="150" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_System_di" bpmnElement="Lane_System">
+        <dc:Bounds x="0" y="150" width="900" height="150" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_AI_di" bpmnElement="Lane_AI">
+        <dc:Bounds x="0" y="300" width="900" height="150" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>
