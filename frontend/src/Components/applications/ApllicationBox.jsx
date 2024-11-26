@@ -9,7 +9,7 @@ import { LuPencilLine } from "react-icons/lu";
 import Closed from "./Closed";
 import Open from "./Open";
 
-export default function ApllicationBox({application, index, handleDelete, isDelete, handleClick, isOpen, handleEdit, setApplicationData}) {
+export default function ApllicationBox({application, index, handleDelete, isDelete, handleClick, isOpen, handleEdit, setApplicationsData, applicationsData}) {
 
 
     return (
@@ -20,7 +20,7 @@ export default function ApllicationBox({application, index, handleDelete, isDele
                 className={` w-[100%] h-[10vh] flex overflow-x-hidden rounded-lg custom_shadow_2 bg-white mb-5`} 
                 layout style={{ 
                     width: isOpen == index ? "100%" : "", 
-                    height : isOpen == index ? "80%" : "",
+                    height : isOpen == index ? "60%" : "",
                 }} 
                 initial = {{y : 20, opacity : 0}} 
                 animate = {{y : 0, opacity : 1}} exit={{x : 700, opacity: 0}} 
@@ -52,7 +52,8 @@ export default function ApllicationBox({application, index, handleDelete, isDele
                                     handleClick={handleClick} 
                                     handleEdit={handleEdit} 
                                     isOpen={isOpen} 
-                                    setApplicationData = {setApplicationData}                             
+                                    setApplicationsData = {setApplicationsData} 
+                                    applicationsData = {applicationsData}                           
                                 />
             }
         </motion.div>
