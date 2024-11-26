@@ -1,5 +1,7 @@
 import { useState } from "react";
 import ApllicationBox from "../Components/applications/ApllicationBox";
+import { FaPlus, FaTimes } from "react-icons/fa";
+import { AnimatePresence, motion } from "framer-motion";
 
 
 export default function Applications() {
@@ -117,6 +119,11 @@ export default function Applications() {
     );
     const [isDelete, setIsDelete] = useState(-1);
     const [isOpen, setIsOpen] = useState(-1);
+    const [isNew, setIsNew] = useState(false);
+    const [newDescription, setDescription] = useState("");
+    const [newCompany, setCompany] = useState("");
+    const [newStatus, setStatus] = useState("in process");
+    const [priority, setPriority] = useState("High");
 
     function handleDelete(indexToDelete){
         setApplicationsData((applicationsData) => applicationsData.map((application, index) => index == indexToDelete ? {...application, show : 0} : {...application} ))
@@ -129,6 +136,29 @@ export default function Applications() {
 
     function handleEdit(index){
         setIsOpen((isOpen) => index == isOpen ? isOpen = -1 : isOpen = index);
+    }
+
+    const today = new Date();
+    const formattedDate = today.toISOString().split('T')[0];// Outputs: yyyy-mm-dd
+
+    function handleNew(e){
+      e.preventDefault();
+      const newApplication = {
+        status : newStatus,
+        severity : priority,
+        company : newCompany,
+        date : formattedDate,
+        description : newDescription,
+        logs : [
+          {event: "Applied", date: formattedDate , details: "Application submitted through a recruitment drive."}
+        ]
+      }
+
+      console.log(newApplication);
+      setApplicationsData((applicationsData) => [...applicationsData, newApplication ]);
+      setIsNew(!isNew);
+      setDescription("");
+      setCompany("");
     }
 
     return (
@@ -147,6 +177,54 @@ export default function Applications() {
                                                                     isOpen={isOpen} />)
                                     )
             }
+
+            <motion.div layout style={{ width : isNew ? "30vw" : "5rem", height : isNew ? "50vh" : "5rem", margin : isNew ? "auto" : "0", borderRadius : isNew ? "50px" : "50px" }} transition={{duration : 0.5}} className="w-20 h-20 bg-white absolute bottom-10 right-10 border-2 border-black rounded-full flex flex-col items-center justify-center overflow-hidden">
+                <AnimatePresence>
+                {
+                    !isNew &&
+                    <motion.div initial={{opacity : 0}} animate={{opacity:1}} transition={{duration:0.2, delay: 0.2}} >
+                        <FaPlus size={40} onClick={() => setIsNew(!isNew)} />
+                    </motion.div>
+                }
+                </AnimatePresence>
+                <AnimatePresence>
+                {
+                    isNew &&
+                    <motion.div className="w-[100%] h-[100%]" initial={{opacity : 0}} animate={{opacity:1}} transition={{duration: 0.2, delay: 0.2}} >
+                      <div className=" h-[10%] absolute pr-8 pt-8 right-0">
+                        <FaTimes size = {30} onClick={() => setIsNew(!isNew)} />
+                      </div>
+                      <form className="h-[100%] flex flex-col justify-start mt-10">
+                          <input className="font-navbar text-4xl font-bold ml-5 h-[20%] pt-6 border-slate-300 focus:border-black border-b focus:outline-none w-[90%]" placeholder="Enter Role" value={newDescription} onChange={(e) => setDescription(e.target.value)} />
+                          <input className="font-navbar text-lg font-light ml-5 pt-3 h-[10%] focus:outline-none border-b border-slate-300 focus:border-black w-[15vw] " placeholder="Enter company" value={newCompany}  onChange={(e) => setCompany(e.target.value)}/>
+                          <div className="flex h-[35%] w-[90%] ml-5 justify-between items-center">
+                              <div className="w-[50%]">
+                                  <label className="font-navbar text-xl mr-4" htmlFor="status">Status</label>
+                                  <select className="border rounded-2xl focus:outline-none border-black p-2 m-2" name="Status" id="status" value={newStatus} onChange={(e) => setStatus(e.target.value)} >
+                                      <option value="in process"> In Process </option>
+                                      <option value="accepted"> Accepted </option>
+                                      <option value="rejected"> Rejected </option>
+                                  </select>
+                              </div>
+                              <div className="w-[50%]">
+                                  <label className="font-navbar text-xl mr-4" htmlFor="priority">Priority</label>
+                                  <select className="border rounded-2xl focus:outline-none border-black p-2 m-2" name="priority" id="priority" value={priority} onChange={(e) => setPriority(e.target.value)} >
+                                      <option value="High"> High </option>
+                                      <option value="Medium"> Medium </option>
+                                      <option value="Low"> Low </option>
+                                  </select>
+                              </div>
+                          </div>
+                          <div className="ml-5 mb-4">
+                          <button onClick={(e) => handleNew(e)} className={`border-2 border-black w-32 h-12 rounded-full font-navbar text-xl hover:bg-black hover:text-white duration-200`} >
+                              Save
+                          </button>
+                          </div>
+                      </form>
+                    </motion.div>
+                }
+                </AnimatePresence>
+            </motion.div>
         </div>
     )
 }
