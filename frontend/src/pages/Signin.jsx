@@ -23,7 +23,7 @@ export default function Signin() {
 
     return (
             <div className="h-[100vh] w-[100vw] flex relative overflow-hidden">
-            <div className="h-[80vh] w-[80vw] m-auto my-auto flex rounded-2xl overflow-hidden custom_shadow">
+            <div className="h-[80vh] w-[80vw] m-auto my-auto flex rounded-2xl overflow-hidden border-2 border-black">
                 <AnimatePresence>
                 {   login &&
                     (<motion.div initial = {{opacity : 0}} animate = {{opacity : 1, position : "static"}} exit = {{opacity : 0}} transition={{ duration : 0.3 }} className="w-[60%] h-[100%] grid grid-rows-[25%,35%,25%] mt-10 absolute">

@@ -45,8 +45,8 @@ const Settings = () => {
   };
 
   return (
-    <div className="min-h-screen w-[100%] bg-white flex flex-col items-center justify-center p-6">
-      <div className="w-[100%] max-w-md bg-white rounded-2xl shadow-lg p-8 relative">
+    <div className="h-[100%] w-[100%] bg-white flex flex-col items-center justify-center p-6">
+      <div className="w-[100%] max-w-md bg-white rounded-2xl shadow-lg p-8 relative border-2 border-black">
         {/* Profile Image Upload */}
         <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
           <div className="relative">
