@@ -97,7 +97,7 @@ const JobTrackingLandingPage = () => {
       </section>
 
       {/* Stats Section */}
-      <section className="py-16 px-4 bg-blue-600 text-white">
+      <section className="py-16 px-4 bg-black text-white">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold mb-4">JobTracker by the Numbers</h2>
