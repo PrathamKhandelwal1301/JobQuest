@@ -59,7 +59,7 @@ const Footer = () => {
               <li className="text-gray-400">Pratham Khandelwal</li>
               <li className="text-gray-400">Aadish Jain</li>
               <li className="text-gray-400">Aryan Francis Borges</li>
-              <li className="text-gray-400">Shrey</li>
+              <li className="text-gray-400">Vasu Kapahi</li>
             </ul>
           </div>
 
