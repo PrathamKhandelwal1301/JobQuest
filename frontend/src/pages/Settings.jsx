@@ -5,8 +5,8 @@ const Settings = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [profileImage, setProfileImage] = useState("");
   const [profile, setProfile] = useState({
-    name: "Pratham Khandelwal",
-    email: "prathamkhandelwal1320@gmail.com",
+    name: "Vasu Kapahi",
+    email: "vasukapahi16@gmail.com",
     rollNo: "........."
   });
 
