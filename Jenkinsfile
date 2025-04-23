@@ -1,6 +1,7 @@
 pipeline {
-    agent {
-        label 'master'
+    agent any
+    tools {
+        maven 'Maven 3.9'  // This should match the name you gave in the config
     }
     stages {
         stage('Build') {
@@ -8,25 +9,14 @@ pipeline {
                 sh 'mvn -B -DskipTests clean package'
             }
         }
-
-        stage('Test') { 
+        stage('Test') {
             steps {
                 sh 'mvn test'
             }
             post {
                 always {
-                    junit 'target/surefire-reports/*.xml' 
+                    junit 'target/surefire-reports/*.xml'
                 }
-            }
-        }
-
-        stage('Sonar-Report') {
-            steps {
-                sh '''
-                    mvn clean install sonar:sonar \
-                    -Dsonar.host.url=http://localhost:9000 \
-                    -Dsonar.analysis.mode=publish
-                '''
             }
         }
     }
